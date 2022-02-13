@@ -42,24 +42,28 @@ class MainActivity : AppCompatActivity() {
         pencilbtn.setOnClickListener {
             Toast.makeText(this,"Pencil Clicked",Toast.LENGTH_SHORT).show()
             PaintView.currentShape=PaintView.Pencile
+            path = Path()
         }
 
         val arrowbtn = findViewById<ImageButton>(R.id.arrow_bottun)
         arrowbtn.setOnClickListener {
             Toast.makeText(this,"Arrow Clicked",Toast.LENGTH_SHORT).show()
             PaintView.currentShape=PaintView.Arrow
+            path = Path()
         }
 
         val rectanglebtn = findViewById<ImageButton>(R.id.rectangle_bottun)
         rectanglebtn.setOnClickListener {
             Toast.makeText(this,"Rectangle Clicked",Toast.LENGTH_SHORT).show()
             PaintView.currentShape=PaintView.Rectangle
+            path = Path()
         }
 
         val circlebtn = findViewById<ImageButton>(R.id.circle_bottun)
         circlebtn.setOnClickListener {
             Toast.makeText(this,"Circle Clicked",Toast.LENGTH_SHORT).show()
             PaintView.currentShape=PaintView.Circle
+            path = Path()
         }
 
     }

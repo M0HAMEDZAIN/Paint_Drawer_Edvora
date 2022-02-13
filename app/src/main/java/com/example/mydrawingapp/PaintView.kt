@@ -15,7 +15,6 @@ import kotlin.math.sqrt
 
 class PaintView : View {
 
-
     var params: ViewGroup.LayoutParams? = null
 
     private var isDrawing = false
@@ -66,6 +65,10 @@ class PaintView : View {
         )
     }
 
+    fun reset() {
+        path = Path()
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         getx = event.x
@@ -91,7 +94,6 @@ class PaintView : View {
             MotionEvent.ACTION_MOVE -> invalidate()
             MotionEvent.ACTION_UP -> {
                 isDrawing = false
-                mCanvas!!.drawLine(StartX, StartY, getx, gety, paintBrush)
                 invalidate()
                 return true
             }
@@ -99,6 +101,7 @@ class PaintView : View {
         postInvalidate()
         return false
     }
+
 
     private fun onTouchEventPencil(event: MotionEvent): Boolean {
         when (event.action) {
@@ -129,11 +132,6 @@ class PaintView : View {
             MotionEvent.ACTION_MOVE -> invalidate()
             MotionEvent.ACTION_UP -> {
                 isDrawing = false
-                val right = if (StartX > getx) StartX else getx
-                val left = if (StartX > getx) getx else StartX
-                val bottom = if (StartY > gety) StartY else gety
-                val top = if (StartY > gety) gety else StartY
-                mCanvas!!.drawRect(left, top, right, bottom, paintBrush)
                 invalidate()
             }
         }
@@ -151,10 +149,6 @@ class PaintView : View {
             MotionEvent.ACTION_MOVE -> invalidate()
             MotionEvent.ACTION_UP -> {
                 isDrawing = false
-                mCanvas!!.drawCircle(
-                    StartX, StartY, calculateRadius(StartX, StartY, getx, gety),
-                    paintBrush
-                )
                 invalidate()
             }
         }
@@ -195,10 +189,12 @@ class PaintView : View {
         val left = if (StartX > getx) getx else StartX
         val bottom = if (StartY > gety) StartY else gety
         val top = if (StartY > gety) gety else StartY
+
         canvas!!.drawRect(left, top, right, bottom, paintBrush)
     }
 
     private fun onDrawArrow(canvas: Canvas?) {
         canvas!!.drawLine(StartX, StartY, getx, gety, paintBrush)
+        invalidate()
     }
 }
